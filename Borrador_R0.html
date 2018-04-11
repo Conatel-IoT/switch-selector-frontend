@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<style>
+		body {
+			font-family: "Arial", sans-serif;
+			margin: 0px;
+		}
+
+		h1 {
+			font-size: 48px;
+			font-weight: bold;
+			margin: 0px;
+		}
+
+		input[type=checkbox] {
+			/*truquito para agrandar los checkboxs */
+			transform: scale(1.5);
+
+		}
+
+		.fa-angle-down {
+			float: right;
+			font-size: 24px;
+			font-weight: bold;
+			padding-right: 2px;
+			/* font-size: 20px; */
+		}
+
+		.encabezado {
+			background-color: CornflowerBlue;
+			text-align: center;
+			padding: 0px;
+			/* border: 1px solid #0066ff; */
+			/* position: fixed; */
+			/* top: 0px; */
+			/* left: 0px; */
+			/*z-index: 10;*/
+			/* display: block; */
+		}
+
+		.barraHerramientas {
+			background-color: CornflowerBlue;
+			padding: 0px;
+			/* border: 3px solid orange; */
+			font-size: 20px;
+			height: 120px;
+			/*overflow: hidden;*/
+		}
+
+		.bhsBarraBusqueda {
+			display: inline-block;
+			border: none;
+			margin-left: 50px;
+			background-color: #ddd;
+		}
+
+		.bhsBarraBusqueda input[type=text] {
+			font-size: 20px;
+			border: 2px solid #ddd;
+			/* padding: 0px; */
+		}
+
+		.bhsBarraBusqueda button {
+			font-size: 20px;
+			/* margin-left: opx; */
+			padding-right: 8px;
+			border: none;
+			background-color: #ddd;
+		}
+
+		.bhsBoton {
+			background-color: rgb(64, 62, 180);
+			border: none;
+			color: white;
+			margin-left: 20px;
+			padding: 10px 20px;
+			font-size: 16px;
+			font-weight: bold;
+			text-align: center;
+			border-radius: 5px;
+			cursor: pointer;
+		}
+
+		.bhIzquierda {
+			display: inline-block;
+			padding-top: 70px;
+			/* border: 3px solid maroon; */
+		}
+
+		.bhDerecha {
+			float: right;
+			padding-top: 70px;
+			/* border: 3px solid red; */
+			margin-right: 10px;
+		}
+
+		.bhUserDisplay {
+			height: 50px;
+			background-color: rgb(202, 240, 240);
+			border: none;
+			border-radius: 30px;
+			padding: 5px 10px;
+
+		}
+
+		.bloquePrincipal {
+			clear: both;
+			padding: 0px;
+		}
+
+		.filtroContenedor {
+			position: absolute;
+			width: 200px;
+			background: CornflowerBlue;
+			font-size: 18px;
+		}
+
+
+		.filtroBotonPersiana {
+			/* position: absolute; */
+			padding: 6px 8px 6px 16px;
+			color: white;
+			width: 200px;
+			background: CornflowerBlue;
+			font-size: 18px;
+			border: 1px solid #637da1;
+			text-align: left;
+			display: block;
+		}
+
+		.filtroContenedor button:hover {
+			background: rgb(63, 108, 187);
+			color: rgb(171, 188, 207);
+		}
+
+		.filtroPersiana {
+			display: none;
+			background-color: #bdc1d6;
+			width: 200px;
+			z-index: 10;
+			/* display: block; */
+			/* transition: width 1s; */
+
+		}
+		.filtroPersiana a:hover{
+			width: 250px;
+
+		}
+		.filtroPersiana a {
+			display: block;
+			text-decoration: none;
+			padding: 6px 8px 6px 16px;
+			border: 1px solid #637da1;
+			color: #5e5883;
+			transition: width 1s;
+		}
+
+		.filtroPersiana a:hover {
+			background-color: #8e96b9;
+			color: #46406b;
+		}
+
+		/* .show {
+			display: block;
+		} */
+
+		.lista {
+			margin-left: 200px;
+			text-align: left;
+			font-size: 19px;
+			max-height: 500px;
+			/*overflow-x: auto;*/
+			overflow-y: auto;
+			display: block;
+		}
+
+		.lista table,
+		td,
+		th {
+			/* formato básico de la tabla de resultados, incluye exteriror, cada celda y el encabezado*/
+			border: 1px solid gray;
+			border-collapse: collapse;
+			padding: 5px;
+		}
+
+		.lista table tr:nth-child(even) {
+			/*formato "Zebra" para la lista de resultados */
+			background-color: #b4b3b3
+		}
+
+		.encabezadoLista {
+			background-color: #3366ff;
+
+		}
+
+		.primeraColumna {
+			text-align: center;
+			/* display: none; */
+			/* IMPORTANTE PARA LUEGO*/
+		}
+	</style>
+</head>
+
+<body>
+	<div class="encabezado">
+		<h1> SWITCHOOSER </h1>
+	</div>
+	<div class="barraHerramientas">
+		<img src="images/LOGO_CONATEL.jpg" alt="LOGO CONATEL" style="float:left;width:303px;height:120px;">
+		<div class="bhIzquierda">
+			<button Id="botonBarra" class="bhsBoton"> Comparar
+			</button>
+			<div class="bhsBarraBusqueda">
+				<form>
+					<input type="text" placeholder="Filtrar por texto..." name="search">
+					<button type="submit">
+						<i class="fa fa-search"></i>
+					</button>
+				</form>
+			</div>
+		</div>
+		<div class="bhDerecha">
+			<button Id="botonBarra" class="bhsBoton"> Salir </button>
+			<span class="bhUserDisplay"> Juan Pueblo </span>
+		</div>
+	</div>
+	<div class="bloquePrincipal">
+		<div class="filtroContenedor">
+			<button class="filtroBotonPersiana" Id="Marca">Marca
+				<i class="fa fa-angle-down"></i>
+			</button>
+			<div class="filtroPersiana">
+				<a href="#CISCO">CISCO
+					<input type="checkbox" name=FSCISCO style="float:right;">
+				</a>
+				<a href="#HP">HP
+					<input type="checkbox" name=FSHP style="float:right;">
+				</a>
+			</div>
+			<button class="filtroBotonPersiana" Id="Modelo">Modelo
+				<i class="fa fa-angle-down"></i>
+			</button>
+			<div class="filtroPersiana">
+				<a href="#niIdea">Ni idea
+					<input type="checkbox" name=FSCISCO style="float:right;">
+				</a>
+				<a href="#niPIdea">NPI
+					<input type="checkbox" name=FSHP style="float:right;">
+				</a>
+			</div>
+			<button class="filtroBotonPersiana" Id="Features">Features
+				<i class="fa fa-angle-down"></i>
+			</button>
+			<div class="filtroPersiana">
+				<a href="#PoE">PoE
+					<input type="checkbox" name=FSPoE style="float:right;">
+				</a>
+				<a href="#PoE+">PoE+
+					<input type="checkbox" name=FSPoE+ style="float:right;">
+				</a>
+				<a href="#RedPow"> Redundant Power
+					<input type="checkbox" name=FSRP style="float:right;">
+				</a>
+				<a href="#OpenFlow">Open Flow
+					<input type="checkbox" name=FSOpFl style="float:right">
+				</a>
+			</div>
+			<button class="filtroBotonPersiana" Id="Managment">Management
+				<i class="fa fa-angle-down"></i>
+			</button>
+			<div class="filtroPersiana">
+				<a href="#gM">Good Mngt
+					<input type="checkbox" name=FSCISCO style="float:right;">
+				</a>
+				<a href="#eM">Excellent Mngt
+					<input type="checkbox" name=FSHP style="float:right;">
+				</a>
+				<a href="#iM">Incredible Mngt
+					<input type="checkbox" name=FSHP style="float:right;">
+				</a>
+			</div>
+			<button class="filtroBotonPersiana" Id="Type">Type
+				<i class="fa fa-angle-down"></i>
+			</button>
+			<div class="filtroPersiana">
+				<a href="#t1">Tipo 1
+					<input type="checkbox" name=FSCISCO style="float:right;">
+				</a>
+				<a href="#t2">Tipo 2
+					<input type="checkbox" name=FSHP style="float:right;">
+				</a>
+				<a href="#sT">Sin Tipo
+					<input type="checkbox" name=FSHP style="float:right;">
+				</a>
+			</div>
+		</div>
+		<div class="lista">
+			<table>
+				<thead class="encabezadoLista">
+					<tr>
+						<th class="primeraColumna">Selección</th>
+						<th>Modelo</th>
+						<th>Marca</th>
+						<th># de Parte</th>
+						<th>Puertos</th>
+						<th>Stackeable</th>
+						<th>Uplink</th>
+						<th># Puertos</th>
+						<th>PoE</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td class="primeraColumna">
+							<input type="checkbox" name="Tag1">
+						</td>
+						<td>SF200-24P</td>
+						<td>Cisco</td>
+						<td>SLM224PT-xx</td>
+						<td>FastEthernet</td>
+						<td>FALSO</td>
+						<td>1Gbps</td>
+						<td>24</td>
+						<td>VERDADERO</td>
+					</tr>
+					<tr>
+						<td class="primeraColumna">
+							<input type="checkbox" name="Tag2">
+						</td>
+						<td>SF200-24</td>
+						<td>Cisco</td>
+						<td>SLM224GT-xx
+						</td>
+						<td>FastEthernet</td>
+						<td>FALSO</td>
+						<td>1Gbps</td>
+						<td>24</td>
+						<td>FALSO</td>
+					</tr>
+					<tr>
+						<td class="primeraColumna">
+							<input type="checkbox" name="Tag3">
+						</td>
+						<td>2960S-F24TS-S</td>
+						<td>Cisco</td>
+						<td>WS-C2960S-F24TS-S</td>
+						<td>FastEthernet</td>
+						<td>FALSO</td>
+						<td>1Gbps</td>
+						<td>24</td>
+						<td>FALSO</td>
+					</tr>
+					<tr>
+						<td class="primeraColumna">
+							<input type="checkbox" name="Tag4">
+						</td>
+						<td>SF200-48P</td>
+						<td>Cisco</td>
+						<td>SLM248PT-xx</td>
+						<td>FastEthernet</td>
+						<td>FALSO</td>
+						<td>1Gbps</td>
+						<td>48</td>
+						<td>VERDADERO</td>
+					</tr>
+					<tr>
+						<td class="primeraColumna">
+							<input type="checkbox" name="Tag5">
+						</td>
+						<td>SF200-48</td>
+						<td>Cisco</td>
+						<td>SLM248GT-xx</td>
+						<td>FastEthernet</td>
+						<td>FALSO</td>
+						<td>1Gbps</td>
+						<td>48</td>
+						<td>FALSO</td>
+					</tr>
+					<tr>
+						<td class="primeraColumna">
+							<input type="checkbox" name="Tag6">
+						</td>
+						<td>2960S-F48TS-S</td>
+						<td>Cisco</td>
+						<td>WS-C2960S-F48TS-S</td>
+						<td>FastEthernet</td>
+						<td>FALSO</td>
+						<td>1Gbps</td>
+						<td>48</td>
+						<td>FALSO</td>
+					</tr>
+					<tr>
+						<td class="primeraColumna">
+							<input type="checkbox" name="Tag7">
+						</td>
+						<td>2960S-F24PS-L****</td>
+						<td>Cisco</td>
+						<td>WS-C2960S-F24PS-L</td>
+						<td>FastEthernet</td>
+						<td>VERDADERO</td>
+						<td>1Gbps</td>
+						<td>24</td>
+						<td>VERDADERO</td>
+					</tr>
+					<tr>
+						<td class="primeraColumna">
+							<input type="checkbox" name="Tag8">
+						</td>
+						<td>2960S-F24TS-L****</td>
+						<td>Cisco</td>
+						<td>WS-C2960S-F24TS-L</td>
+						<td>FastEthernet</td>
+						<td>VERDADERO</td>
+						<td>1Gbps</td>
+						<td>24</td>
+						<td>FALSO</td>
+					</tr>
+					<tr>
+						<td class="primeraColumna">
+							<input type="checkbox" name="Tag9">
+						</td>
+						<td>2960S-F48LPS-L****</td>
+						<td>Cisco</td>
+						<td>WS-C2960S-F48LPS-L</td>
+						<td>FastEthernet</td>
+						<td>VERDADERO</td>
+						<td>1Gbps</td>
+						<td>48</td>
+						<td>VERDADERO</td>
+					</tr>
+					<tr>
+						<td class="primeraColumna">
+							<input type="checkbox" name="Tag10">
+						</td>
+						<td>2960S-F48FPS-L****</td>
+						<td>Cisco</td>
+						<td>WS-C2960S-F48FPS-L</td>
+						<td>FastEthernet</td>
+						<td>VERDADERO</td>
+						<td>1Gbps</td>
+						<td>48</td>
+						<td>VERDADERO</td>
+					</tr>
+					<tr>
+						<td class="primeraColumna">
+							<input type="checkbox" name="Tag11">
+						</td>
+						<td>2960S-F48TS-L****</td>
+						<td>Cisco</td>
+						<td>WS-C2960S-F48TS-L</td>
+						<td>FastEthernet</td>
+						<td>VERDADERO</td>
+						<td>1Gbps</td>
+						<td>48</td>
+						<td>FALSO</td>
+					</tr>
+					<tr>
+						<td class="primeraColumna">
+							<input type="checkbox" name="Tag12">
+						</td>
+						<td>SG200-26P</td>
+						<td>Cisco</td>
+						<td>SLM2024PT-xx</td>
+						<td>GigabitEthernet</td>
+						<td>FALSO</td>
+						<td>1Gbps</td>
+						<td>24</td>
+						<td>VERDADERO</td>
+					</tr>
+					<tr>
+						<td class="primeraColumna">
+							<input type="checkbox" name="Tag13">
+						</td>
+						<td>2960X-24PSQ-L</td>
+						<td>Cisco</td>
+						<td>WS-C2960X-24PSQ-L</td>
+						<td>GigabitEthernet</td>
+						<td>FALSO</td>
+						<td>1Gbps</td>
+						<td>24</td>
+						<td>VERDADERO</td>
+					</tr>
+					<tr>
+						<td class="primeraColumna">
+							<input type="checkbox" name="Tag14">
+						</td>
+						<td>SG200-26</td>
+						<td>Cisco</td>
+						<td>SLM2024PT-xx</td>
+						<td>GigabitEthernet</td>
+						<td>FALSO</td>
+						<td>1Gbps</td>
+						<td>24</td>
+						<td>FALSO</td>
+					</tr>
+					<tr>
+						<td class="primeraColumna">
+							<input type="checkbox" name="Tag15">
+						</td>
+						<td>2960S-24TS-S</td>
+						<td>Cisco</td>
+						<td>WS-C2960S-24TS-S</td>
+						<td>GigabitEthernet</td>
+						<td>FALSO</td>
+						<td>1Gbps</td>
+						<td>24</td>
+						<td>FALSO</td>
+					</tr>
+					<tr>
+						<td class="primeraColumna">
+							<input type="checkbox" name="Tag16">
+						</td>
+						<td>2960X-24TS-LL</td>
+						<td>Cisco</td>
+						<td>WS-C2960X-24TS-LL</td>
+						<td>GigabitEthernet</td>
+						<td>FALSO</td>
+						<td>1Gbps</td>
+						<td>24</td>
+						<td>FALSO</td>
+					</tr>
+					<tr>
+						<td class="primeraColumna">
+							<input type="checkbox" name="Tag17">
+						</td>
+						<td>SG200-50P</td>
+						<td>Cisco</td>
+						<td>SLM2048PT-xx</td>
+						<td>GigabitEthernet</td>
+						<td>FALSO</td>
+						<td>1Gbps</td>
+						<td>48</td>
+						<td>VERDADERO</td>
+					</tr>
+					<tr>
+						<td class="primeraColumna">
+							<input type="checkbox" name="Tag18">
+						</td>
+						<td>SG200-50</td>
+						<td>Cisco</td>
+						<td>SLM2048T-xx</td>
+						<td>GigabitEthernet</td>
+						<td>FALSO</td>
+						<td>1Gbps</td>
+						<td>48</td>
+						<td>VERDADERO</td>
+					</tr>
+					<tr>
+						<td class="primeraColumna">
+							<input type="checkbox" name="Tag19">
+						</td>
+						<td>2960S-24TS-S</td>
+						<td>Cisco</td>
+						<td>WS-C2960S-24TS-S</td>
+						<td>GigabitEthernet</td>
+						<td>FALSO</td>
+						<td>1Gbps</td>
+						<td>48</td>
+						<td>VERDADERO</td>
+					</tr>
+					<tr>
+						<td class="primeraColumna">
+							<input type="checkbox" name="Tag20">
+						</td>
+						<td>2960X-48TS-LL</td>
+						<td>Cisco</td>
+						<td>WS-C2960X-48TS-LL</td>
+						<td>GigabitEthernet</td>
+						<td>FALSO</td>
+						<td>1Gbps</td>
+						<td>48</td>
+						<td>VERDADERO</td>
+					</tr>
+					<tr>
+						<td class="primeraColumna">
+							<input type="checkbox" name="Tag21">
+						</td>
+						<td>2960S-24PS-L*</td>
+						<td>Cisco</td>
+						<td>WS-C2960S-24PS-L</td>
+						<td>GigabitEthernet</td>
+						<td>VERDADERO</td>
+						<td>1Gbps</td>
+						<td>24</td>
+						<td>VERDADERO</td>
+					</tr>
+					<tr>
+						<td class="primeraColumna">
+							<input type="checkbox" name="Tag22">
+						</td>
+						<td>2960X-24PS-L***</td>
+						<td>Cisco</td>
+						<td>WS-C2960X-24PS-L</td>
+						<td>GigabitEthernet</td>
+						<td>VERDADERO</td>
+						<td>1Gbps</td>
+						<td>24</td>
+						<td>VERDADERO</td>
+					</tr>
+					<tr>
+						<td class="primeraColumna">
+							<input type="checkbox" name="Tag23">
+						</td>
+						<td>2960S-24TS-L*</td>
+						<td>Cisco</td>
+						<td>WS-C2960S-24TS-L</td>
+						<td>GigabitEthernet</td>
+						<td>VERDADERO</td>
+						<td>1Gbps</td>
+						<td>24</td>
+						<td>FALSO</td>
+					</tr>
+					<tr>
+						<td class="primeraColumna">
+							<input type="checkbox" name="Tag24">
+						</td>
+						<td>2960X-24TS-L***</td>
+						<td>Cisco</td>
+						<td>WS-C2960X-24TS-L</td>
+						<td>GigabitEthernet</td>
+						<td>VERDADERO</td>
+						<td>1Gbps</td>
+						<td>24</td>
+						<td>FALSO</td>
+					</tr>
+					<tr>
+						<td class="primeraColumna">
+							<input type="checkbox" name="Tag25">
+						</td>
+						<td>2960S-48LPS-L*</td>
+						<td>Cisco</td>
+						<td>WS-C2960S-48LPS-L</td>
+						<td>GigabitEthernet</td>
+						<td>VERDADERO</td>
+						<td>1Gbps</td>
+						<td>48</td>
+						<td>VERDADERO</td>
+					</tr>
+					<tr>
+						<td class="primeraColumna">
+							<input type="checkbox" name="Tag26">
+						</td>
+						<td>2960S-48FPS-L*</td>
+						<td>Cisco</td>
+						<td>WS-C2960S-48FPS-L</td>
+						<td>GigabitEthernet</td>
+						<td>VERDADERO</td>
+						<td>1Gbps</td>
+						<td>48</td>
+						<td>VERDADERO</td>
+					</tr>
+					<tr>
+						<td class="primeraColumna">
+							<input type="checkbox" name="Tag27">
+						</td>
+						<td>2960X-48LPS-L***</td>
+						<td>Cisco</td>
+						<td>WS-C2960X-48LPS-L</td>
+						<td>GigabitEthernet</td>
+						<td>VERDADERO</td>
+						<td>1Gbps</td>
+						<td>48</td>
+						<td>VERDADERO</td>
+					</tr>
+					<tr>
+						<td class="primeraColumna">
+							<input type="checkbox" name="Tag28">
+						</td>
+						<td>2960X-48FPS-L***</td>
+						<td>Cisco</td>
+						<td>WS-C2960X-48FPS-L</td>
+						<td>GigabitEthernet</td>
+						<td>VERDADERO</td>
+						<td>1Gbps</td>
+						<td>48</td>
+						<td>VERDADERO</td>
+					</tr>
+					<tr>
+						<td class="primeraColumna">
+							<input type="checkbox" name="Tag29">
+						</td>
+						<td>2960S-48TS-L*</td>
+						<td>Cisco</td>
+						<td>WS-C2960S-48TS-L</td>
+						<td>GigabitEthernet</td>
+						<td>VERDADERO</td>
+						<td>1Gbps</td>
+						<td>24</td>
+						<td>FALSO</td>
+					</tr>
+					<tr>
+						<td class="primeraColumna">
+							<input type="checkbox" name="Tag30">
+						</td>
+						<td>2960X-48TS-L***</td>
+						<td>Cisco</td>
+						<td>WS-C2960X-48TS-LL</td>
+						<td>GigabitEthernet</td>
+						<td>VERDADERO</td>
+						<td>1Gbps</td>
+						<td>24</td>
+						<td>FALSO</td>
+					</tr>
+					<tr>
+						<td class="primeraColumna">
+							<input type="checkbox" name="Tag31">
+						</td>
+						<td>2960S-24PD-L*</td>
+						<td>Cisco</td>
+						<td>WS-C2960S-24PD-L</td>
+						<td>GigabitEthernet</td>
+						<td>VERDADERO</td>
+						<td>10Gbps</td>
+						<td>24</td>
+						<td>VERDADERO</td>
+					</tr>
+					<tr>
+						<td class="primeraColumna">
+							<input type="checkbox" name="Tag32">
+						</td>
+						<td>2960X-24PD-L***</td>
+						<td>Cisco</td>
+						<td>WS-C2960X-24PD-L</td>
+						<td>GigabitEthernet</td>
+						<td>VERDADERO</td>
+						<td>10Gbps</td>
+						<td>24</td>
+						<td>VERDADERO</td>
+					</tr>
+					<tr>
+						<td class="primeraColumna">
+							<input type="checkbox" name="Tag33">
+						</td>
+						<td>2960S-24TD-L*</td>
+						<td>Cisco</td>
+						<td>WS-C2960S-24TD-L</td>
+						<td>GigabitEthernet</td>
+						<td>VERDADERO</td>
+						<td>10Gbps</td>
+						<td>24</td>
+						<td>FALSO</td>
+					</tr>
+					<tr>
+						<td class="primeraColumna">
+							<input type="checkbox" name="Tag34">
+						</td>
+						<td>2960X-24TD-L***</td>
+						<td>Cisco</td>
+						<td>WS-C2960X-24TD-L</td>
+						<td>GigabitEthernet</td>
+						<td>VERDADERO</td>
+						<td>10Gbps</td>
+						<td>24</td>
+						<td>FALSO</td>
+					</tr>
+					<tr>
+						<td class="primeraColumna">
+							<input type="checkbox" name="Tag35">
+						</td>
+						<td>2960S-48LPD-L*</td>
+						<td>Cisco</td>
+						<td>WS-C2960S-48LPD-L</td>
+						<td>GigabitEthernet</td>
+						<td>VERDADERO</td>
+						<td>10Gbps</td>
+						<td>48</td>
+						<td>VERDADERO</td>
+					</tr>
+					<tr>
+						<td class="primeraColumna">
+							<input type="checkbox" name="Tag36">
+						</td>
+						<td>2960S-48FPD-L*</td>
+						<td>Cisco</td>
+						<td>WS-C2960S-48FPD-L</td>
+						<td>GigabitEthernet</td>
+						<td>VERDADERO</td>
+						<td>10Gbps</td>
+						<td>48</td>
+						<td>VERDADERO</td>
+					</tr>
+					<tr>
+						<td class="primeraColumna">
+							<input type="checkbox" name="Tag37">
+						</td>
+						<td>2960X-48LPD-L***</td>
+						<td>Cisco</td>
+						<td>WS-C2960X-48LPD-L</td>
+						<td>GigabitEthernet</td>
+						<td>VERDADERO</td>
+						<td>10Gbps</td>
+						<td>48</td>
+						<td>VERDADERO</td>
+					</tr>
+					<tr>
+						<td class="primeraColumna">
+							<input type="checkbox" name="Tag38">
+						</td>
+						<td>2960X-48FPD-L***</td>
+						<td>Cisco</td>
+						<td>WS-C2960X-48FPD-L</td>
+						<td>GigabitEthernet</td>
+						<td>VERDADERO</td>
+						<td>10Gbps</td>
+						<td>48</td>
+						<td>VERDADERO</td>
+					</tr>
+					<tr>
+						<td class="primeraColumna">
+							<input type="checkbox" name="Tag39">
+						</td>
+						<td>2960S-48TD-L*</td>
+						<td>Cisco</td>
+						<td>WS-C2960S-48TD-L</td>
+						<td>GigabitEthernet</td>
+						<td>VERDADERO</td>
+						<td>10Gbps</td>
+						<td>48</td>
+						<td>FALSO</td>
+					</tr>
+					<tr>
+						<td class="primeraColumna">
+							<input type="checkbox" name="Tag40">
+						</td>
+						<td>2960X-48TD-L***</td>
+						<td>Cisco</td>
+						<td>WS-C2960X-48TD-L</td>
+						<td>GigabitEthernet</td>
+						<td>VERDADERO</td>
+						<td>10Gbps</td>
+						<td>48</td>
+						<td>FALSO</td>
+					</tr>
+					<tr>
+						<td class="primeraColumna">
+							<input type="checkbox" name="Tag41">
+						</td>
+						<td>JE008A</td>
+						<td>HP</td>
+						<td></td>
+						<td>GigabitEthernet</td>
+						<td>FALSO</td>
+						<td>1Gbps</td>
+						<td>24</td>
+						<td>VERDADERO</td>
+					</tr>
+					<tr>
+						<td class="primeraColumna">
+							<input type="checkbox" name="Tag42">
+						</td>
+						<td>JE007A</td>
+						<td>HP</td>
+						<td></td>
+						<td>GigabitEthernet</td>
+						<td>FALSO</td>
+						<td>1Gbps</td>
+						<td>24</td>
+						<td>VERDADERO</td>
+					</tr>
+					<tr>
+						<td class="primeraColumna">
+							<input type="checkbox" name="Tag43">
+						</td>
+						<td>JE006A</td>
+						<td>HP</td>
+						<td></td>
+						<td>GigabitEthernet</td>
+						<td>FALSO</td>
+						<td>1Gbps</td>
+						<td>24</td>
+						<td>FALSO</td>
+					</tr>
+					<tr>
+						<td class="primeraColumna">
+							<input type="checkbox" name="Tag44">
+						</td>
+						<td>JE009A</td>
+						<td>HP</td>
+						<td></td>
+						<td>GigabitEthernet</td>
+						<td>FALSO</td>
+						<td>1Gbps</td>
+						<td>48</td>
+						<td>VERDADERO</td>
+					</tr>
+					<tr>
+						<td class="primeraColumna">
+							<input type="checkbox" name="Tag45">
+						</td>
+						<td>JE074A**</td>
+						<td>HP</td>
+						<td></td>
+						<td>GigabitEthernet</td>
+						<td>VERDADERO</td>
+						<td>1Gbps</td>
+						<td>24</td>
+						<td>VERDADERO</td>
+					</tr>
+					<tr>
+						<td class="primeraColumna">
+							<input type="checkbox" name="Tag46">
+						</td>
+						<td>JG091A**</td>
+						<td>HP</td>
+						<td></td>
+						<td>GigabitEthernet</td>
+						<td>VERDADERO</td>
+						<td>1Gbps</td>
+						<td>24</td>
+						<td>VERDADERO</td>
+					</tr>
+					<tr>
+						<td class="primeraColumna">
+							<input type="checkbox" name="Tag47">
+						</td>
+						<td>JE066A**</td>
+						<td>HP</td>
+						<td></td>
+						<td>GigabitEthernet</td>
+						<td>VERDADERO</td>
+						<td>1Gbps</td>
+						<td>24</td>
+						<td>FALSO</td>
+					</tr>
+					<tr>
+						<td class="primeraColumna">
+							<input type="checkbox" name="Tag48">
+						</td>
+						<td>JE067A**</td>
+						<td>HP</td>
+						<td></td>
+						<td>GigabitEthernet</td>
+						<td>VERDADERO</td>
+						<td>1Gbps</td>
+						<td>48</td>
+						<td>VERDADERO</td>
+					</tr>
+					<tr>
+						<td class="primeraColumna">
+							<input type="checkbox" name="Tag49">
+						</td>
+						<td>JE072A**</td>
+						<td>HP</td>
+						<td></td>
+						<td>GigabitEthernet</td>
+						<td>VERDADERO</td>
+						<td>1Gbps</td>
+						<td>24</td>
+						<td>FALSO</td>
+					</tr>
+					<tr>
+						<td class="primeraColumna">
+							<input type="checkbox" name="Tag50">
+						</td>
+						<td>JG236A**</td>
+						<td>HP</td>
+						<td></td>
+						<td>GigabitEthernet</td>
+						<td>VERDADERO</td>
+						<td>10Gbps</td>
+						<td>24</td>
+						<td>VERDADERO</td>
+					</tr>
+					<tr>
+						<td class="primeraColumna">
+							<input type="checkbox" name="Tag51">
+						</td>
+						<td>JE068A**</td>
+						<td>HP</td>
+						<td></td>
+						<td>GigabitEthernet</td>
+						<td>VERDADERO</td>
+						<td>10Gbps</td>
+						<td>24</td>
+						<td>FALSO</td>
+					</tr>
+					<tr>
+						<td class="primeraColumna">
+							<input type="checkbox" name="Tag52">
+						</td>
+						<td>JG237A**</td>
+						<td>HP</td>
+						<td></td>
+						<td>GigabitEthernet</td>
+						<td>VERDADERO</td>
+						<td>10Gbps</td>
+						<td>48</td>
+						<td>VERDADERO</td>
+					</tr>
+					<tr>
+						<td class="primeraColumna">
+							<input type="checkbox" name="Tag53">
+						</td>
+						<td>JE069A**</td>
+						<td>HP</td>
+						<td></td>
+						<td>GigabitEthernet</td>
+						<td>VERDADERO</td>
+						<td>10Gbps</td>
+						<td>48</td>
+						<td>FALSO</td>
+					</tr>
+				</tbody>
+			</table>
+
+
+		</div>
+	</div>
+	<script>
+		var dropdown = document.getElementsByClassName("filtroBotonPersiana");
+		var i;
+		for (i = 0; i < dropdown.length; i++) {
+			dropdown[i].addEventListener("click", function () {
+				this.classList.toggle("active");
+				var dropdownContent = this.nextElementSibling;
+				if (dropdownContent.style.display === "block") {
+					dropdownContent.style.display = "none";
+				} else {
+					dropdownContent.style.display = "block";
+				}
+			});
+		}
+
+	</script>
+</body>
+
+</html>
