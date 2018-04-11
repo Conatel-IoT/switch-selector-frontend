@@ -1,0 +1,45 @@
+
+
+
+<p id="demo"></p>
+ 
+
+<script>
+
+
+  
+var text = '{ "equipos" : [' +
+'{"Marca":"Cisco","Modelo":"SF200-24P","Puertos":24,"Uplink":"1Gbps","TipoPuerto":"FastEthernet","PoE":"VERDADERO","Stackeable":"FALSO","DeParte":"SLM224PT-xx"}, ' + 
+'{"Marca":"Cisco","Modelo":"SF200-24","Puertos":24,"Uplink":"1Gbps","TipoPuerto":"FastEthernet","PoE":"FALSO","Stackeable":"FALSO","DeParte":"SLM224GT-xx "},  '  +
+'{"Marca":"Cisco","Modelo":"2960S-F24TS-S","Puertos":24,"Uplink":"1Gbps","TipoPuerto":"FastEthernet","PoE":"FALSO","Stackeable":"FALSO","DeParte":"WS-C2960S-F24TS-S"}] } ';  
+
+
+var txt = '';
+// pareseo el JSON.
+var obj = JSON.parse(text);
+console.log(obj);
+// Invoco funcion CrearTable
+
+txt = crearTable(obj); 
+// la cadena con valores HTML de funcion la asigno al P.
+document.getElementById("demo").innerHTML  = txt;
+
+
+
+
+/// Funcion, forma una Tabla en base a un JSON.
+function crearTable(objeto) {
+var txt;
+// usar MAP. 
+ txt = "<table border='1'><tr><td>Marca</td><td>Modelo</td><td>Puertos</td><td>Uplink</td></tr>"
+ for (i in objeto.equipos) {
+
+ txt += "<tr><td>" + objeto.equipos[i].Marca  + "</td><td>" + objeto.equipos[i].Modelo + "</td><td>" + objeto.equipos[i].Puertos + "</td><td>" + objeto.equipos[i].Uplink  + "</td></tr>";
+
+ }
+txt += "</table>" 
+return txt;
+ }
+ 
+
+</script>
