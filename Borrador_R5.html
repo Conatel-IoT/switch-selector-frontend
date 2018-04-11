@@ -4,6 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- JQuery CDN -->
+    <!-- <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script> -->
+
     <style>
         body {
             font-family: "Arial", sans-serif;
@@ -321,7 +325,7 @@
         <div class="lista" id="acaVaLaTabla"></div>
     </div>
     <script>
-       
+
         //Manejo de presianans de filtro
         var dropdown = document.getElementsByclassName("filtroBotonPersiana");
         var i;
@@ -337,53 +341,64 @@
                 }
             });
         };
-   
+
+
         //Crea tabla a partir de JSON
         var texto = ''; // Inicializa texto
-        
-        var myJSON = '[ { "Marca": "Cisco", "Modelo": "SF200-24P", "CantidadPuertos": 24, "TipoPuertos": "FastEthernet", "Uplink": "1Gbps", "Image": "SD", "PoE": "TRUE", "TipoPoE": "SD", "MultiGbps": "SD", "CantidadPuertosMultiGbps": "SD", "Stackeable": "FALSE", "Layer3": "SD" }, { "Marca": "Cisco", "Modelo": "SF200-24", "CantidadPuertos": 24, "TipoPuertos": "FastEthernet", "Uplink": "1Gbps", "Image": "SD", "PoE": "FALSE", "TipoPoE": "NA", "MultiGbps": "SD", "CantidadPuertosMultiGbps": "SD", "Stackeable": "FALSE", "Layer3": "SD" }, { "Marca": "Cisco", "Modelo": "2960S-F24TS-S", "CantidadPuertos": 24, "TipoPuertos": "FastEthernet", "Uplink": "1Gbps", "Image": "SD", "PoE": "FALSE", "TipoPoE": "NA", "MultiGbps": "SD", "CantidadPuertosMultiGbps": "SD", "Stackeable": "FALSE", "Layer3": "SD" }, { "Marca": "Cisco", "Modelo": "SF200-48P", "CantidadPuertos": 48, "TipoPuertos": "FastEthernet", "Uplink": "1Gbps", "Image": "SD", "PoE": "TRUE", "TipoPoE": "SD", "MultiGbps": "SD", "CantidadPuertosMultiGbps": "SD", "Stackeable": "FALSE", "Layer3": "SD" }, { "Marca": "Cisco", "Modelo": "SF200-48", "CantidadPuertos": 48, "TipoPuertos": "FastEthernet", "Uplink": "1Gbps", "Image": "SD", "PoE": "FALSE", "TipoPoE": "NA", "MultiGbps": "SD", "CantidadPuertosMultiGbps": "SD", "Stackeable": "FALSE", "Layer3": "SD" }, { "Marca": "Cisco", "Modelo": "2960S-F48TS-S", "CantidadPuertos": 48, "TipoPuertos": "FastEthernet", "Uplink": "1Gbps", "Image": "SD", "PoE": "FALSE", "TipoPoE": "NA", "MultiGbps": "SD", "CantidadPuertosMultiGbps": "SD", "Stackeable": "FALSE", "Layer3": "SD" }, { "Marca": "Cisco", "Modelo": "2960S-F24PS-L****", "CantidadPuertos": 24, "TipoPuertos": "FastEthernet", "Uplink": "1Gbps", "Image": "SD", "PoE": "TRUE", "TipoPoE": "SD", "MultiGbps": "SD", "CantidadPuertosMultiGbps": "SD", "Stackeable": "TRUE", "Layer3": "SD" }, { "Marca": "Cisco", "Modelo": "2960S-F24TS-L****", "CantidadPuertos": 24, "TipoPuertos": "FastEthernet", "Uplink": "1Gbps", "Image": "SD", "PoE": "FALSE", "TipoPoE": "NA", "MultiGbps": "SD", "CantidadPuertosMultiGbps": "SD", "Stackeable": "TRUE", "Layer3": "SD" }, { "Marca": "Cisco", "Modelo": "2960S-F48LPS-L****", "CantidadPuertos": 48, "TipoPuertos": "FastEthernet", "Uplink": "1Gbps", "Image": "SD", "PoE": "TRUE", "TipoPoE": "SD", "MultiGbps": "SD", "CantidadPuertosMultiGbps": "SD", "Stackeable": "TRUE", "Layer3": "SD" }, { "Marca": "Cisco", "Modelo": "2960S-F48FPS-L****", "CantidadPuertos": 48, "TipoPuertos": "FastEthernet", "Uplink": "1Gbps", "Image": "SD", "PoE": "TRUE", "TipoPoE": "SD", "MultiGbps": "SD", "CantidadPuertosMultiGbps": "SD", "Stackeable": "TRUE", "Layer3": "SD" }, { "Marca": "Cisco", "Modelo": "2960S-F48TS-L****", "CantidadPuertos": 48, "TipoPuertos": "FastEthernet", "Uplink": "1Gbps", "Image": "SD", "PoE": "FALSE", "TipoPoE": "NA", "MultiGbps": "SD", "CantidadPuertosMultiGbps": "SD", "Stackeable": "TRUE", "Layer3": "SD" }, { "Marca": "Cisco", "Modelo": "SG200-26P", "CantidadPuertos": 24, "TipoPuertos": "GigabitEthernet", "Uplink": "1Gbps", "Image": "SD", "PoE": "TRUE", "TipoPoE": "SD", "MultiGbps": "SD", "CantidadPuertosMultiGbps": "SD", "Stackeable": "FALSE", "Layer3": "SD" }, { "Marca": "Cisco", "Modelo": "2960X-24PSQ-L", "CantidadPuertos": 24, "TipoPuertos": "GigabitEthernet", "Uplink": "1Gbps", "Image": "SD", "PoE": "TRUE", "TipoPoE": "SD", "MultiGbps": "SD", "CantidadPuertosMultiGbps": "SD", "Stackeable": "FALSE", "Layer3": "SD" }, { "Marca": "Cisco", "Modelo": "SG200-26", "CantidadPuertos": 24, "TipoPuertos": "GigabitEthernet", "Uplink": "1Gbps", "Image": "SD", "PoE": "FALSE", "TipoPoE": "NA", "MultiGbps": "SD", "CantidadPuertosMultiGbps": "SD", "Stackeable": "FALSE", "Layer3": "SD" }, { "Marca": "Cisco", "Modelo": "2960S-24TS-S", "CantidadPuertos": 24, "TipoPuertos": "GigabitEthernet", "Uplink": "1Gbps", "Image": "SD", "PoE": "FALSE", "TipoPoE": "NA", "MultiGbps": "SD", "CantidadPuertosMultiGbps": "SD", "Stackeable": "FALSE", "Layer3": "SD" }, { "Marca": "Cisco", "Modelo": "2960X-24TS-LL", "CantidadPuertos": 24, "TipoPuertos": "GigabitEthernet", "Uplink": "1Gbps", "Image": "SD", "PoE": "FALSE", "TipoPoE": "NA", "MultiGbps": "SD", "CantidadPuertosMultiGbps": "SD", "Stackeable": "FALSE", "Layer3": "SD" }, { "Marca": "Cisco", "Modelo": "SG200-50P", "CantidadPuertos": 48, "TipoPuertos": "GigabitEthernet", "Uplink": "1Gbps", "Image": "SD", "PoE": "TRUE", "TipoPoE": "SD", "MultiGbps": "SD", "CantidadPuertosMultiGbps": "SD", "Stackeable": "FALSE", "Layer3": "SD" }, { "Marca": "Cisco", "Modelo": "SG200-50", "CantidadPuertos": 48, "TipoPuertos": "GigabitEthernet", "Uplink": "1Gbps", "Image": "SD", "PoE": "TRUE", "TipoPoE": "SD", "MultiGbps": "SD", "CantidadPuertosMultiGbps": "SD", "Stackeable": "FALSE", "Layer3": "SD" }, { "Marca": "Cisco", "Modelo": "2960S-24TS-S", "CantidadPuertos": 48, "TipoPuertos": "GigabitEthernet", "Uplink": "1Gbps", "Image": "SD", "PoE": "TRUE", "TipoPoE": "SD", "MultiGbps": "SD", "CantidadPuertosMultiGbps": "SD", "Stackeable": "FALSE", "Layer3": "SD" }, { "Marca": "Cisco", "Modelo": "2960X-48TS-LL", "CantidadPuertos": 48, "TipoPuertos": "GigabitEthernet", "Uplink": "1Gbps", "Image": "SD", "PoE": "TRUE", "TipoPoE": "SD", "MultiGbps": "SD", "CantidadPuertosMultiGbps": "SD", "Stackeable": "FALSE", "Layer3": "SD" }, { "Marca": "Cisco", "Modelo": "2960S-24PS-L*", "CantidadPuertos": 24, "TipoPuertos": "GigabitEthernet", "Uplink": "1Gbps", "Image": "SD", "PoE": "TRUE", "TipoPoE": "SD", "MultiGbps": "SD", "CantidadPuertosMultiGbps": "SD", "Stackeable": "TRUE", "Layer3": "SD" }, { "Marca": "Cisco", "Modelo": "2960X-24PS-L***", "CantidadPuertos": 24, "TipoPuertos": "GigabitEthernet", "Uplink": "1Gbps", "Image": "SD", "PoE": "TRUE", "TipoPoE": "SD", "MultiGbps": "SD", "CantidadPuertosMultiGbps": "SD", "Stackeable": "TRUE", "Layer3": "SD" }, { "Marca": "Cisco", "Modelo": "2960S-24TS-L*", "CantidadPuertos": 24, "TipoPuertos": "GigabitEthernet", "Uplink": "1Gbps", "Image": "SD", "PoE": "FALSE", "TipoPoE": "NA", "MultiGbps": "SD", "CantidadPuertosMultiGbps": "SD", "Stackeable": "TRUE", "Layer3": "SD" }, { "Marca": "Cisco", "Modelo": "2960X-24TS-L***", "CantidadPuertos": 24, "TipoPuertos": "GigabitEthernet", "Uplink": "1Gbps", "Image": "SD", "PoE": "FALSE", "TipoPoE": "NA", "MultiGbps": "SD", "CantidadPuertosMultiGbps": "SD", "Stackeable": "TRUE", "Layer3": "SD" }, { "Marca": "Cisco", "Modelo": "2960S-48LPS-L*", "CantidadPuertos": 48, "TipoPuertos": "GigabitEthernet", "Uplink": "1Gbps", "Image": "SD", "PoE": "TRUE", "TipoPoE": "SD", "MultiGbps": "SD", "CantidadPuertosMultiGbps": "SD", "Stackeable": "TRUE", "Layer3": "SD" }, { "Marca": "Cisco", "Modelo": "2960S-48FPS-L*", "CantidadPuertos": 48, "TipoPuertos": "GigabitEthernet", "Uplink": "1Gbps", "Image": "SD", "PoE": "TRUE", "TipoPoE": "SD", "MultiGbps": "SD", "CantidadPuertosMultiGbps": "SD", "Stackeable": "TRUE", "Layer3": "SD" }, { "Marca": "Cisco", "Modelo": "2960X-48LPS-L***", "CantidadPuertos": 48, "TipoPuertos": "GigabitEthernet", "Uplink": "1Gbps", "Image": "SD", "PoE": "TRUE", "TipoPoE": "SD", "MultiGbps": "SD", "CantidadPuertosMultiGbps": "SD", "Stackeable": "TRUE", "Layer3": "SD" }, { "Marca": "Cisco", "Modelo": "2960X-48FPS-L***", "CantidadPuertos": 48, "TipoPuertos": "GigabitEthernet", "Uplink": "1Gbps", "Image": "SD", "PoE": "TRUE", "TipoPoE": "SD", "MultiGbps": "SD", "CantidadPuertosMultiGbps": "SD", "Stackeable": "TRUE", "Layer3": "SD" }, { "Marca": "Cisco", "Modelo": "2960S-48TS-L*", "CantidadPuertos": 24, "TipoPuertos": "GigabitEthernet", "Uplink": "1Gbps", "Image": "SD", "PoE": "FALSE", "TipoPoE": "NA", "MultiGbps": "SD", "CantidadPuertosMultiGbps": "SD", "Stackeable": "TRUE", "Layer3": "SD" }, { "Marca": "Cisco", "Modelo": "2960X-48TS-L***", "CantidadPuertos": 24, "TipoPuertos": "GigabitEthernet", "Uplink": "1Gbps", "Image": "SD", "PoE": "FALSE", "TipoPoE": "NA", "MultiGbps": "SD", "CantidadPuertosMultiGbps": "SD", "Stackeable": "TRUE", "Layer3": "SD" }, { "Marca": "Cisco", "Modelo": "2960S-24PD-L*", "CantidadPuertos": 24, "TipoPuertos": "GigabitEthernet", "Uplink": "10Gbps", "Image": "SD", "PoE": "TRUE", "TipoPoE": "SD", "MultiGbps": "SD", "CantidadPuertosMultiGbps": "SD", "Stackeable": "TRUE", "Layer3": "SD" }, { "Marca": "Cisco", "Modelo": "2960X-24PD-L***", "CantidadPuertos": 24, "TipoPuertos": "GigabitEthernet", "Uplink": "10Gbps", "Image": "SD", "PoE": "TRUE", "TipoPoE": "SD", "MultiGbps": "SD", "CantidadPuertosMultiGbps": "SD", "Stackeable": "TRUE", "Layer3": "SD" }, { "Marca": "Cisco", "Modelo": "2960S-24TD-L*", "CantidadPuertos": 24, "TipoPuertos": "GigabitEthernet", "Uplink": "10Gbps", "Image": "SD", "PoE": "FALSE", "TipoPoE": "NA", "MultiGbps": "SD", "CantidadPuertosMultiGbps": "SD", "Stackeable": "TRUE", "Layer3": "SD" }, { "Marca": "Cisco", "Modelo": "2960X-24TD-L***", "CantidadPuertos": 24, "TipoPuertos": "GigabitEthernet", "Uplink": "10Gbps", "Image": "SD", "PoE": "FALSE", "TipoPoE": "NA", "MultiGbps": "SD", "CantidadPuertosMultiGbps": "SD", "Stackeable": "TRUE", "Layer3": "SD" }, { "Marca": "Cisco", "Modelo": "2960S-48LPD-L*", "CantidadPuertos": 48, "TipoPuertos": "GigabitEthernet", "Uplink": "10Gbps", "Image": "SD", "PoE": "TRUE", "TipoPoE": "SD", "MultiGbps": "SD", "CantidadPuertosMultiGbps": "SD", "Stackeable": "TRUE", "Layer3": "SD" }, { "Marca": "Cisco", "Modelo": "2960S-48FPD-L*", "CantidadPuertos": 48, "TipoPuertos": "GigabitEthernet", "Uplink": "10Gbps", "Image": "SD", "PoE": "TRUE", "TipoPoE": "SD", "MultiGbps": "SD", "CantidadPuertosMultiGbps": "SD", "Stackeable": "TRUE", "Layer3": "SD" }, { "Marca": "Cisco", "Modelo": "2960X-48LPD-L***", "CantidadPuertos": 48, "TipoPuertos": "GigabitEthernet", "Uplink": "10Gbps", "Image": "SD", "PoE": "TRUE", "TipoPoE": "SD", "MultiGbps": "SD", "CantidadPuertosMultiGbps": "SD", "Stackeable": "TRUE", "Layer3": "SD" }, { "Marca": "Cisco", "Modelo": "2960X-48FPD-L***", "CantidadPuertos": 48, "TipoPuertos": "GigabitEthernet", "Uplink": "10Gbps", "Image": "SD", "PoE": "TRUE", "TipoPoE": "SD", "MultiGbps": "SD", "CantidadPuertosMultiGbps": "SD", "Stackeable": "TRUE", "Layer3": "SD" }, { "Marca": "Cisco", "Modelo": "2960S-48TD-L*", "CantidadPuertos": 48, "TipoPuertos": "GigabitEthernet", "Uplink": "10Gbps", "Image": "SD", "PoE": "FALSE", "TipoPoE": "NA", "MultiGbps": "SD", "CantidadPuertosMultiGbps": "SD", "Stackeable": "TRUE", "Layer3": "SD" }, { "Marca": "Cisco", "Modelo": "2960X-48TD-L***", "CantidadPuertos": 48, "TipoPuertos": "GigabitEthernet", "Uplink": "10Gbps", "Image": "SD", "PoE": "FALSE", "TipoPoE": "NA", "MultiGbps": "SD", "CantidadPuertosMultiGbps": "SD", "Stackeable": "TRUE", "Layer3": "SD" }, { "Marca": "HP", "Modelo": "JE008A", "CantidadPuertos": 24, "TipoPuertos": "GigabitEthernet", "Uplink": "1Gbps", "Image": "SD", "PoE": "TRUE", "TipoPoE": "SD", "MultiGbps": "SD", "CantidadPuertosMultiGbps": "SD", "Stackeable": "FALSE", "Layer3": "SD" }, { "Marca": "HP", "Modelo": "JE007A", "CantidadPuertos": 24, "TipoPuertos": "GigabitEthernet", "Uplink": "1Gbps", "Image": "SD", "PoE": "TRUE", "TipoPoE": "SD", "MultiGbps": "SD", "CantidadPuertosMultiGbps": "SD", "Stackeable": "FALSE", "Layer3": "SD" }, { "Marca": "HP", "Modelo": "JE006A", "CantidadPuertos": 24, "TipoPuertos": "GigabitEthernet", "Uplink": "1Gbps", "Image": "SD", "PoE": "FALSE", "TipoPoE": "NA", "MultiGbps": "SD", "CantidadPuertosMultiGbps": "SD", "Stackeable": "FALSE", "Layer3": "SD" }, { "Marca": "HP", "Modelo": "JE009A", "CantidadPuertos": 48, "TipoPuertos": "GigabitEthernet", "Uplink": "1Gbps", "Image": "SD", "PoE": "TRUE", "TipoPoE": "SD", "MultiGbps": "SD", "CantidadPuertosMultiGbps": "SD", "Stackeable": "FALSE", "Layer3": "SD" }, { "Marca": "HP", "Modelo": "JE074A**", "CantidadPuertos": 24, "TipoPuertos": "GigabitEthernet", "Uplink": "1Gbps", "Image": "SD", "PoE": "TRUE", "TipoPoE": "SD", "MultiGbps": "SD", "CantidadPuertosMultiGbps": "SD", "Stackeable": "TRUE", "Layer3": "SD" }, { "Marca": "HP", "Modelo": "JG091A**", "CantidadPuertos": 24, "TipoPuertos": "GigabitEthernet", "Uplink": "1Gbps", "Image": "SD", "PoE": "TRUE", "TipoPoE": "SD", "MultiGbps": "SD", "CantidadPuertosMultiGbps": "SD", "Stackeable": "TRUE", "Layer3": "SD" }, { "Marca": "HP", "Modelo": "JE066A**", "CantidadPuertos": 24, "TipoPuertos": "GigabitEthernet", "Uplink": "1Gbps", "Image": "SD", "PoE": "FALSE", "TipoPoE": "NA", "MultiGbps": "SD", "CantidadPuertosMultiGbps": "SD", "Stackeable": "TRUE", "Layer3": "SD" }, { "Marca": "HP", "Modelo": "JE067A**", "CantidadPuertos": 48, "TipoPuertos": "GigabitEthernet", "Uplink": "1Gbps", "Image": "SD", "PoE": "TRUE", "TipoPoE": "SD", "MultiGbps": "SD", "CantidadPuertosMultiGbps": "SD", "Stackeable": "TRUE", "Layer3": "SD" }, { "Marca": "HP", "Modelo": "JE072A**", "CantidadPuertos": 24, "TipoPuertos": "GigabitEthernet", "Uplink": "1Gbps", "Image": "SD", "PoE": "FALSE", "TipoPoE": "NA", "MultiGbps": "SD", "CantidadPuertosMultiGbps": "SD", "Stackeable": "TRUE", "Layer3": "SD" }, { "Marca": "HP", "Modelo": "JG236A**", "CantidadPuertos": 24, "TipoPuertos": "GigabitEthernet", "Uplink": "10Gbps", "Image": "SD", "PoE": "TRUE", "TipoPoE": "SD", "MultiGbps": "SD", "CantidadPuertosMultiGbps": "SD", "Stackeable": "TRUE", "Layer3": "SD" }, { "Marca": "HP", "Modelo": "JE068A**", "CantidadPuertos": 24, "TipoPuertos": "GigabitEthernet", "Uplink": "10Gbps", "Image": "SD", "PoE": "FALSE", "TipoPoE": "NA", "MultiGbps": "SD", "CantidadPuertosMultiGbps": "SD", "Stackeable": "TRUE", "Layer3": "SD" }, { "Marca": "HP", "Modelo": "JG237A**", "CantidadPuertos": 48, "TipoPuertos": "GigabitEthernet", "Uplink": "10Gbps", "Image": "SD", "PoE": "TRUE", "TipoPoE": "SD", "MultiGbps": "SD", "CantidadPuertosMultiGbps": "SD", "Stackeable": "TRUE", "Layer3": "SD" }, { "Marca": "HP", "Modelo": "JE069A**", "CantidadPuertos": 48, "TipoPuertos": "GigabitEthernet", "Uplink": "10Gbps", "Image": "SD", "PoE": "FALSE", "TipoPoE": "NA", "MultiGbps": "SD", "CantidadPuertosMultiGbps": "SD", "Stackeable": "TRUE", "Layer3": "SD" } ]'
-        var myJSArray = JSON.parse(myJSON); //Crea array JS a partir de JSON
-        texto = crearTabla(myJSArray); // Crea tabla HTML a partir de Array JS
-        document.getElementById("acaVaLaTabla").innerHTML = texto; //Inserta  HTML en el lugar correcto
-   
+
+        $.ajax({ //Consulta ajax (JQuery, asincronica) 
+            url: "https://s3.amazonaws.com/iot-static-assets/switch.json",
+            context: document.body,
+            success: function (myJSON) {
+                var myJSArray = JSON.parse(myJSON); //Crea array JS a partir de JSON
+                texto = crearTabla(myJSArray); // Crea tabla HTML a partir de Array JS
+                document.getElementById("acaVaLaTabla").innerHTML = texto; //Inserta  HTML en el lugar correcto
+            },
+            error: function (errormsg) {
+
+            }
+        })
+
+
+
         /// Funcion, forma una Tabla en base a un JSON.
         function crearTabla(array) {
             var txt;
             //Encabezado
             txt = '<table>';
-                txt += '<thead class="encabezadoLista">';
-                txt += '<tr>';
-                    txt += '<th class="Col01"> Sel. </th>';
-                    txt += '<th class="Col02"> Marca </th>';
-                    txt += '<th class="Col03"> Modelo </th>';
-                    txt += '<th class="Col04"> Cantidad Puertos </th>';
-                    txt += '<th class="Col06"> Uplink </th >';
-                    txt += '<th class="Col05"> Tipo Puertos </th>';
-                    txt += '<th class="Col07"> Image </th>';
-                    txt += '<th class="Col08"> PoE </th >';
-                    txt += '<th class="Col09"> Tipo PoE </th>';
-                    txt += '<th class="Col10"> MultiGbps </th>';
-                    txt += '<th class="Col11"> Cant Puertos MultiGbps </th>';
-                    txt += '<th class="Col12"> Stackeable </th>';
-                    txt += '<th class="Col13"> Layer 3 </th>';
-                txt += '</tr> </thead>';
+            txt += '<thead class="encabezadoLista">';
+            txt += '<tr>';
+            txt += '<th class="Col01"> Sel. </th>';
+            txt += '<th class="Col02"> Marca </th>';
+            txt += '<th class="Col03"> Modelo </th>';
+            txt += '<th class="Col04"> Cantidad Puertos </th>';
+            txt += '<th class="Col06"> Uplink </th >';
+            txt += '<th class="Col05"> Tipo Puertos </th>';
+            txt += '<th class="Col07"> Image </th>';
+            txt += '<th class="Col08"> PoE </th >';
+            txt += '<th class="Col09"> Tipo PoE </th>';
+            txt += '<th class="Col10"> MultiGbps </th>';
+            txt += '<th class="Col11"> Cant Puertos MultiGbps </th>';
+            txt += '<th class="Col12"> Stackeable </th>';
+            txt += '<th class="Col13"> Layer 3 </th>';
+            txt += '</tr> </thead>';
             txt += '<tbody>';
 
             for (i in array) {
-                txt += '<tr class="' + array[i].Modelo +'">'
-                    txt += '<td class="Col01> <input type="checkbox" name="Tag' + (Number(i)+1) + '"> </td>'; 
-                    txt += '<td class="Col02">' + array[i].Marca + '</td>';
-                    txt += '<td class="Col03">' + array[i].Modelo + '</td>';
-                    txt += '<td class="Col04">' + array[i].CantidadPuertos + '</td>';
-                    txt += '<td class="Col05">' + array[i].TipoPuertos + '</td>';
-                    txt += '<td class="Col06">' + array[i].Uplink + '</td>';
-                    txt += '<td class="Col07">' + array[i].Image + '</td>';
-                    txt += '<td class="Col08">' + array[i].PoE + '</td>';
-                    txt += '<td class="Col09">' + array[i].TipoPoE + '</td>';
-                    txt += '<td class="Col10">' + array[i].MultiGbps + '</td>';
-                    txt += '<td class="Col11">' + array[i].CantidadPuertosMultiGbps + '</td>';
-                    txt += '<td class="Col12">' + array[i].Stackeable + '</td>';
-                    txt += '<td class="Col13">' + array[i].Layer3 + '</td>';
+                txt += '<tr class="' + array[i].Modelo + '">'
+                txt += '<td class="Col01> <input type="checkbox" name="Tag' + (Number(i) + 1) + '"> </td>';
+                txt += '<td class="Col02">' + array[i].Marca + '</td>';
+                txt += '<td class="Col03">' + array[i].Modelo + '</td>';
+                txt += '<td class="Col04">' + array[i].CantidadPuertos + '</td>';
+                txt += '<td class="Col05">' + array[i].TipoPuertos + '</td>';
+                txt += '<td class="Col06">' + array[i].Uplink + '</td>';
+                txt += '<td class="Col07">' + array[i].Image + '</td>';
+                txt += '<td class="Col08">' + array[i].PoE + '</td>';
+                txt += '<td class="Col09">' + array[i].TipoPoE + '</td>';
+                txt += '<td class="Col10">' + array[i].MultiGbps + '</td>';
+                txt += '<td class="Col11">' + array[i].CantidadPuertosMultiGbps + '</td>';
+                txt += '<td class="Col12">' + array[i].Stackeable + '</td>';
+                txt += '<td class="Col13">' + array[i].Layer3 + '</td>';
                 txt += '</tr>';
             }
             txt += '</tbody> </table>'
