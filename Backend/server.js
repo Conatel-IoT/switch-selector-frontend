@@ -8,9 +8,9 @@ var bodyParser = require ('body-parser');
 
 app.use(bodyParser.json({limit:'50mb'}));
 
-MongoClient.connect('mongodb://172.17.0.3:27017/switches', function (err, client) {
+MongoClient.connect('mongodb+srv://flkangel:KqFIaLHWJJkJTOGt@cluster0-f17oz.mongodb.net/test', function (err, client) {
   assert.equal(null, err);
-  var db = client.db('switches');
+  var db = client.db('test');
   console.log("Successfully connected to MongoDB");
 
   app.get('/switches', function (req, res) {
