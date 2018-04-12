@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- JQuery CDN -->
-    <!-- <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-        crossorigin="anonymous"></script> -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
 
     <style>
         body {
@@ -327,7 +327,7 @@
     <script>
 
         //Manejo de presianans de filtro
-        var dropdown = document.getElementsByclassName("filtroBotonPersiana");
+        var dropdown = document.getElementsByClassName("filtroBotonPersiana");
         var i;
         for (i = 0; i < dropdown.length; i++) {
             dropdown[i].addEventListener("click", function () {
@@ -349,13 +349,14 @@
         $.ajax({ //Consulta ajax (JQuery, asincronica) 
             url: "https://s3.amazonaws.com/iot-static-assets/switch.json",
             context: document.body,
-            success: function (myJSON) {
-                var myJSArray = JSON.parse(myJSON); //Crea array JS a partir de JSON
+            success: function (myJSArray) { //ajax devuelve directamente un obketo JS
+                // console.log(myJSON);
+                // var myJSArray = JSON.parse(myJSON); //Crea array JS a partir de JSON
                 texto = crearTabla(myJSArray); // Crea tabla HTML a partir de Array JS
                 document.getElementById("acaVaLaTabla").innerHTML = texto; //Inserta  HTML en el lugar correcto
             },
             error: function (errormsg) {
-
+                console.log(errormsg);
             }
         })
 
@@ -386,7 +387,7 @@
 
             for (i in array) {
                 txt += '<tr class="' + array[i].Modelo + '">'
-                txt += '<td class="Col01> <input type="checkbox" name="Tag' + (Number(i) + 1) + '"> </td>';
+                txt += '<td class="Col01"> <input type="checkbox" name="Tag' + (Number(i) + 1) + '"> </td>';
                 txt += '<td class="Col02">' + array[i].Marca + '</td>';
                 txt += '<td class="Col03">' + array[i].Modelo + '</td>';
                 txt += '<td class="Col04">' + array[i].CantidadPuertos + '</td>';
