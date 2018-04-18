@@ -18,6 +18,12 @@ MongoClient.connect('mongodb+srv://flkangel:KqFIaLHWJJkJTOGt@cluster0-f17oz.mong
     cursor.toArray().then(data => res.status(200).json(data));
   });
 
+  app.get('/get/:id', function (req, res) {
+    const id = req.params.id;
+    var cursor = db.collection('switches').find({part_number:id});
+    cursor.toArray().then(data => res.status(200).json(data));
+  });
+
   app.put('/insert', function (req, res) {
     var d = new Date().toISOString();
     var param_date = {
