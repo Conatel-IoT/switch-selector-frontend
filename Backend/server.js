@@ -1,5 +1,8 @@
 'use strict';
-//Load express module with `require` directive
+
+// Load environment variables.
+require('dotenv').config();
+// Load express module with `require` directive
 var express = require('express');
 var app = express();
 var MongoClient = require('mongodb').MongoClient;
@@ -8,7 +11,10 @@ var bodyParser = require ('body-parser');
 
 app.use(bodyParser.json({limit:'50mb'}));
 
-MongoClient.connect('mongodb+srv://flkangel:REQUEST_PASSWORD_TO_ACCESS@cluster0-f17oz.mongodb.net/test', function (err, client) {
+var username = process.env.MONGO_USERNAME
+var password = process.env.MONGO_PASSWORD
+
+MongoClient.connect(`mongodb+srv://${username}:${password}@cluster0-f17oz.mongodb.net/test`, function (err, client) {
   assert.equal(null, err);
   var db = client.db('test');
   console.log("Successfully connected to MongoDB");
