@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- JQuery CDN -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+
+    <style>
+        body {
+            font-family: "Arial", sans-serif;
+            margin: 0px;
+        }
+
+        h1 {
+            font-size: 48px;
+            font-weight: bold;
+            margin: 0px;
+        }
+
+        input[type=checkbox] {
+            /*truquito para agrandar los checkboxs */
+            transform: scale(1.5);
+        }
+
+        input[type=radio] {
+            /*truquito para agrandar los radio buttons */
+            transform: scale(1.5);
+        }
+
+        .fa-angle-down {
+            float: right;
+            font-size: 24px;
+            font-weight: bold;
+            padding-right: 2px;
+            /* font-size: 20px; */
+        }
+
+        .encabezado {
+            background-color: CornflowerBlue;
+            text-align: center;
+            padding: 0px;
+            /* border: 1px solid #0066ff; */
+            /* position: fixed; */
+            /* top: 0px; */
+            /* left: 0px; */
+            /*z-index: 10;*/
+            /* display: block; */
+        }
+
+        .barraHerramientas {
+            background-color: CornflowerBlue;
+            padding: 0px;
+            /* border: 3px solid orange; */
+            font-size: 20px;
+            height: 120px;
+            /*overflow: hidden;*/
+        }
+
+        .bhsBarraBusqueda {
+            display: inline-block;
+            border: none;
+            margin-left: 50px;
+            background-color: #ddd;
+        }
+
+        .bhsBarraBusqueda input[type=text] {
+            font-size: 20px;
+            border: 2px solid #ddd;
+            /* padding: 0px; */
+        }
+
+        .bhsBarraBusqueda button {
+            font-size: 20px;
+            /* margin-left: opx; */
+            padding-right: 8px;
+            border: none;
+            background-color: #ddd;
+        }
+
+        .bhsBoton {
+            background-color: rgb(64, 62, 180);
+            border: none;
+            color: white;
+            margin-left: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .bhIzquierda {
+            display: inline-block;
+            padding-top: 70px;
+            /* border: 3px solid maroon; */
+        }
+
+        .bhDerecha {
+            float: right;
+            padding-top: 70px;
+            /* border: 3px solid red; */
+            margin-right: 10px;
+        }
+
+        .bhUserDisplay {
+            height: 50px;
+            background-color: rgb(202, 240, 240);
+            border: none;
+            border-radius: 30px;
+            padding: 5px 10px;
+
+        }
+
+        .bloquePrincipal {
+            clear: both;
+            padding: 0px;
+        }
+
+        .filtroContenedor {
+            position: absolute;
+            width: 200px;
+            background: CornflowerBlue;
+            font-size: 18px;
+        }
+
+
+        .filtroBotonPersiana {
+            /* position: absolute; */
+            padding: 6px 8px 6px 16px;
+            color: white;
+            width: 200px;
+            background: CornflowerBlue;
+            font-size: 18px;
+            border: 1px solid #637da1;
+            text-align: left;
+            display: block;
+        }
+
+        .filtroContenedor button:hover {
+            background: rgb(63, 108, 187);
+            color: rgb(171, 188, 207);
+        }
+
+        .filtroPersiana {
+            display: none;
+            background-color: #bdc1d6;
+            width: 200px;
+            transition: width 1s;
+            /* display: block; */
+            /* transition: width 1s; */
+        }
+
+        .filtroPersiana a {
+            display: block;
+            text-decoration: none;
+            padding: 6px 8px 6px 16px;
+            border: 1px solid #637da1;
+            color: #5e5883;
+            cursor: default;
+
+        }
+
+        .filtroPersiana a:hover {
+            background-color: #8e96b9;
+            color: #46406b;
+        }
+
+        /* .show {
+			display: block;
+		} */
+
+        .lista {
+            margin-left: 200px;
+            text-align: left;
+            font-size: 19px;
+            max-height: 500px;
+            /*overflow-x: auto;*/
+            overflow-y: auto;
+            display: block;
+        }
+
+        .lista table,
+        td,
+        th {
+            /* formato básico de la tabla de resultados, incluye exteriror, cada celda y el encabezado*/
+            border: 1px solid gray;
+            border-collapse: collapse;
+            padding: 5px;
+        }
+
+        .lista table tr:nth-child(even) {
+            /*formato "Zebra" para la lista de resultados */
+            background-color: #b4b3b3
+        }
+
+        .lista table tr td:first-child {
+            text-align: center;
+        }
+
+        .encabezadoLista {
+            background-color: #3366ff;
+
+        }
+
+        /* .primeraColumna { */
+
+        /* text-align: center; */
+
+        /* display: none; */
+
+        /* IMPORTANTE PARA LUEGO*/
+
+        /* } */
+    </style>
+</head>
+
+<body>
+    <div class="encabezado">
+        <h1> SWITCHOOSER </h1>
+    </div>
+    <div class="barraHerramientas">
+        <img src="images/LOGO_CONATEL.jpg" alt="LOGO CONATEL" style="float:left;width:303px;height:120px;">
+        <div class="bhIzquierda">
+            <button Id="botonBarra" class="bhsBoton"> Comparar
+            </button>
+            <div class="bhsBarraBusqueda">
+                <form>
+                    <input type="text" placeholder="Filtrar por texto..." name="search">
+                    <button type="submit">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+        <div class="bhDerecha">
+            <button Id="botonBarra" class="bhsBoton"> Salir </button>
+            <span class="bhUserDisplay"> Juan Pueblo </span>
+        </div>
+    </div>
+    <div class="bloquePrincipal">
+        <div class="filtroContenedor">
+            <button class="filtroBotonPersiana" Id="Marca">Marca
+                <i class="fa fa-angle-down"></i>
+            </button>
+            <div class="filtroPersiana">
+                <a href="#CISCO">CISCO
+                    <input type="checkbox" name=FSCISCO style="float:right;">
+                </a>
+                <a href="#HP">HP
+                    <input type="checkbox" name=FSHP style="float:right;">
+                </a>
+            </div>
+            <button class="filtroBotonPersiana" Id="cantidadPuertos">Cantidad Puertos
+                <i class="fa fa-angle-down"></i>
+            </button>
+            <div class="filtroPersiana">
+                <a href="#24puertos">24
+                    <input type="checkbox" name=FS24 style="float:right;">
+                </a>
+                <a href="#48puertos">48
+                    <input type="checkbox" name=FS48 style="float:right;">
+                </a>
+            </div>
+            <button class="filtroBotonPersiana" Id="tipoPuertos">Tipo Puertos
+                <i class="fa fa-angle-down"></i>
+            </button>
+            <div class="filtroPersiana">
+                <a href="#fastEthernet">100BaseT
+                    <input type="checkbox" name=FSTP100 style="float:right;">
+                </a>
+                <a href="#gigaEthernet"> 1000BaseT
+                    <input type="checkbox" name=FSTP1000 style="float:right;">
+                </a>
+                <a href="#UTP">SFP
+                    <input type="checkbox" name=FSSTP style="float:right;">
+                </a>
+            </div>
+            <button class="filtroBotonPersiana" Id="Uplink">Uplink
+                <i class="fa fa-angle-down"></i>
+            </button>
+            <div class="filtroPersiana">
+                <a href="#1Gbps">SFP
+                    <input type="checkbox" name=FSULSFP style="float:right;">
+                </a>
+                <a href="#10Gbps">SFP+
+                    <input type="checkbox" name=FSULSFP style="float:right;">
+                </a>
+                <a href="#2Upinks">1000BaseT
+                    <input type="checkbox" name=FSRP style="float:right;">
+                </a>
+            </div>
+            <button class="filtroBotonPersiana" Id="PoE">PoE
+                <i class="fa fa-angle-down"></i>
+            </button>
+            <div class="filtroPersiana">
+                <a href="#PoE">PoE
+                    <input type="checkbox" data-key="PoE" data-type="PoE" name=FSPoE style="float:right;">
+                </a>
+                <a href="#PoE+">PoE+
+                    <input type="checkbox" name=FSPoE+ style="float:right;">
+                </a>
+                <a href="#UPoE">UPoE
+                    <input type="checkbox" name=FSUPoE style="float:right;">
+                </a>
+            </div>
+            <button class="filtroBotonPersiana" Id="Otros">Otros
+                <i class="fa fa-angle-down"></i>
+            </button>
+            <div class="filtroPersiana">
+                <a href="#MultiGbps">MultiGbps
+                    <input type="checkbox" name=FSMGbps style="float:right;">
+                </a>
+                <a href="#Stackeable">Stackeable
+                    <input type="checkbox" name=FSTP1000 style="float:right;">
+                </a>
+                <a href="#Layer3">Layer3
+                    <input type="checkbox" name=FSUTP style="float:right;">
+                </a>
+            </div>
+        </div>
+        <div class="lista" id="acaVaLaTabla"></div>
+    </div>
+    <script>
+
+        //Manejo de presianans de filtro
+        var dropdown = document.getElementsByClassName("filtroBotonPersiana");
+        var i;
+        for (i = 0; i < dropdown.length; i++) {
+            dropdown[i].addEventListener("click", function () {
+                // this.classList.toggle("active");
+                var dropdownContent = this.nextElementSibling;
+                console.log(dropdownContent);
+                if (dropdownContent.style.display === "block") {
+                    dropdownContent.style.display = "none";
+                } else {
+                    dropdownContent.style.display = "block";
+                }
+            });
+        };
+
+
+        //Crea tabla a partir de JSON
+        var texto = ''; // Inicializa texto
+	var url = "http://52.91.41.44:8081/switches";
+
+        $.ajax({ //Consulta ajax (JQuery, asincronica) 
+            url: url,
+            context: document.body,
+            success: function (myJSArray) { //ajax devuelve directamente un obketo JS
+                // console.log(myJSON);
+                // var myJSArray = JSON.parse(myJSON); //Crea array JS a partir de JSON
+                window.switches = myJSArray;
+		texto = crearTabla(filtrarTabla(myJSArray)); // Crea tabla HTML a partir de Array JS
+                document.getElementById("acaVaLaTabla").innerHTML = texto; //Inserta  HTML en el lugar correcto
+            },
+            error: function (error) {
+                console.error(error);
+            }
+        })
+
+
+
+        /// Funcion, forma una Tabla en base a un JSON.
+        function crearTabla(array) {
+            var txt;
+            //Encabezado
+            txt = '<table>';
+            txt += '<thead class="encabezadoLista">';
+            txt += '<tr>';
+            txt += '<th class="Col01"> Sel. </th>';
+            txt += '<th class="Col02"> Marca </th>';
+            txt += '<th class="Col03"> Modelo </th>';
+            txt += '<th class="Col04"> Cantidad Puertos </th>';
+            txt += '<th class="Col06"> Uplink </th >';
+            txt += '<th class="Col05"> Tipo Puertos </th>';
+            txt += '<th class="Col07"> Image </th>';
+            txt += '<th class="Col08"> PoE </th >';
+            txt += '<th class="Col09"> Tipo PoE </th>';
+            txt += '<th class="Col10"> MultiGbps </th>';
+            txt += '<th class="Col11"> Cant Puertos MultiGbps </th>';
+            txt += '<th class="Col12"> Stackeable </th>';
+            txt += '<th class="Col13"> Layer 3 </th>';
+            txt += '</tr> </thead>';
+            txt += '<tbody>';
+
+            for (i in array) {
+                txt += '<tr class="' + array[i].Modelo + '">'
+                txt += '<td class="Col01"> <input type="checkbox" name="Tag' + (Number(i) + 1) + '"> </td>';
+                txt += '<td class="Col02">' + array[i].Marca + '</td>';
+                txt += '<td class="Col03">' + array[i].Modelo + '</td>';
+                txt += '<td class="Col04">' + array[i].CantidadPuertos + '</td>';
+                txt += '<td class="Col05">' + array[i].TipoPuertos + '</td>';
+                txt += '<td class="Col06">' + array[i].Uplink + '</td>';
+                txt += '<td class="Col07">' + array[i].Image + '</td>';
+                txt += '<td class="Col08">' + array[i].PoE + '</td>';
+                txt += '<td class="Col09">' + array[i].TipoPoE + '</td>';
+                txt += '<td class="Col10">' + array[i].MultiGbps + '</td>';
+                txt += '<td class="Col11">' + array[i].CantidadPuertosMultiGbps + '</td>';
+                txt += '<td class="Col12">' + array[i].Stackeable + '</td>';
+                txt += '<td class="Col13">' + array[i].Layer3 + '</td>';
+                txt += '</tr>';
+            }
+            txt += '</tbody> </table>'
+            return txt;
+        }
+
+    </script>
+</body>
+
+</html>

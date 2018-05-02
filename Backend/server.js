@@ -8,6 +8,7 @@ var app = express();
 var MongoClient = require('mongodb').MongoClient;
 var assert = require('assert');
 var bodyParser = require ('body-parser');
+var cors = require('cors');
 
 app.use(bodyParser.json({limit:'50mb'}));
 
@@ -18,6 +19,8 @@ MongoClient.connect(`mongodb+srv://${username}:${password}@cluster0-f17oz.mongod
   assert.equal(null, err);
   var db = client.db('test');
   console.log("Successfully connected to MongoDB");
+	
+  app.use(cors());  
 
   app.get('/switches', function (req, res) {
     var cursor = db.collection('switches').find({});
