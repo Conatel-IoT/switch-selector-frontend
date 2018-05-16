@@ -347,11 +347,13 @@
         var texto = ''; // Inicializa texto
 
         $.ajax({ //Consulta ajax (JQuery, asincronica) 
-            url: "https://s3.amazonaws.com/iot-static-assets/switch.json",
+            url: "http://54.175.87.162:8081/switches",
             context: document.body,
+            dataType: 'json',
             success: function (myJSArray) { //ajax devuelve directamente un obketo JS
-                // console.log(myJSON);
-                // var myJSArray = JSON.parse(myJSON); //Crea array JS a partir de JSON
+                
+                 var myJSArray = JSON.parse(myJSON);
+                 console.log(myJSArray) //Crea array JS a partir de JSON
                 texto = crearTabla(myJSArray); // Crea tabla HTML a partir de Array JS
                 document.getElementById("acaVaLaTabla").innerHTML = texto; //Inserta  HTML en el lugar correcto
             },
